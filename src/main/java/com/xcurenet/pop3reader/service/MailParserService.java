@@ -11,8 +11,8 @@ import javax.mail.internet.MimeMultipart;
 @Service
 public class MailParserService {
 
-	public MailData parse(Message msg) throws Exception {
-		return MailData.builder().messageId(getMessageId(msg)).from(msg.getFrom() != null ? msg.getFrom()[0].toString() : "").subject(msg.getSubject()).sentDate(msg.getSentDate()).body(Jsoup.parse(extractText(msg)).wholeText()).msg(msg).build();
+	public MailData parse(Message msg, final String mailPop3Username) throws Exception {
+		return MailData.builder().accountId(mailPop3Username).messageId(getMessageId(msg)).from(msg.getFrom() != null ? msg.getFrom()[0].toString() : "").subject(msg.getSubject()).sentDate(msg.getSentDate()).body(Jsoup.parse(extractText(msg)).wholeText()).msg(msg).build();
 	}
 
 	private String extractText(Part part) throws Exception {

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "../../dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xcurenet.pop3reader.mapper.ServiceMapper">
+	<insert id="insert">
+		INSERT INTO MAIL_DEDUP (ACCOUNT_ID, MESSAGE_ID)
+		VALUES (#{accountId}, #{messageId})
+	</insert>
+</mapper>

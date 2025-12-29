@@ -14,7 +14,6 @@ public class Pop3ReaderApplication {
 
 	public final static String PID_FILE = "./bin/application.pid";
 
-
 	public static void main(String[] args) {
 		SpringApplication application = new SpringApplication(Pop3ReaderApplication.class);
 		application.setRegisterShutdownHook(false);

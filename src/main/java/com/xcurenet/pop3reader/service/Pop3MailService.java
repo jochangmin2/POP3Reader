@@ -49,7 +49,7 @@ public class Pop3MailService {
 				if (count++ >= mailProperties.getMailPop3FetchCount()) break;
 				if (!mailFilterService.isOriginalMail(msg)) continue;
 
-				MailData data = mailParserService.parse(msg);
+				MailData data = mailParserService.parse(msg, mailProperties.getMailPop3Username());
 				mailForwardService.forward(data);
 			}
 

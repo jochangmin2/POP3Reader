@@ -9,6 +9,7 @@ import java.util.Date;
 @Data
 @Builder
 public class MailData {
+	private String accountId;
 	private String messageId;
 	private String from;
 	private String subject;
