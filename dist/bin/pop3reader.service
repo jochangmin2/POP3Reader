@@ -1,0 +1,17 @@
+[Unit]
+Description=Systemd XCURENET LogVault Daemon
+After=network.target
+
+[Service]
+Type=forking
+User=root
+WorkingDirectory=/users/logvault
+ExecStart=/users/logvault/bin/logvault start
+ExecStop=/users/logvault/bin/logvault stop
+SuccessExitStatus=143
+Restart=on-failure
+RestartSec=30
+
+
+[Install]
+WantedBy=multi-user.target

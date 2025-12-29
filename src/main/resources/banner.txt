@@ -1,0 +1,10 @@
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+Application : ${spring.application.name}
+Description : ${spring.application.description}
+JAVA        : ${java.runtime.name} ${java.version}
+HEAP        : XMS:${jvm.xms} | XMX:${jvm.xmx}
+OS          : ${os.name}.${os.version}
+PID         : ${PID}
+Port        : ${server.port}
+---------------------------------------------------------------------------------------------------------------------------------------------

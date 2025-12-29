@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true">
+
+	<property name="PATTERN" value="%d{HH:mm:ss.SSS} | %-5level | %23.23F{1}%4L | %msg%n"/>
+	<property name="CONSOLE_PATTERN" value="%d{HH:mm:ss.SSS} | %-5level | %18.18thread | %24.24F{1}%4L | %msg%n"/>
+
+	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>${CONSOLE_PATTERN}</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="CONSOLE_TOOL" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>${TOOL_PATTERN}</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="APP_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>logs/app.log</file>
+		<encoder>
+			<pattern>${CONSOLE_PATTERN}</pattern>
+		</encoder>
+		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<fileNamePattern>logs/app.%d{yyyyMMdd}.%i.log.gz</fileNamePattern>
+			<maxFileSize>2GB</maxFileSize>
+			<maxHistory>30</maxHistory>
+			<totalSizeCap>20GB</totalSizeCap>
+		</rollingPolicy>
+	</appender>
+
+	<!-- 필요시 개별 로거 레벨 -->
+	<logger name="sun" level="WARN"/>
+	<logger name="javax" level="WARN"/>
+	<logger name="org.springframework.boot" level="INFO"/>
+	<logger name="org.springframework.boot.devtools" level="WARN"/>
+	<logger name="org.opensearch.client.RestClient" level="ERROR"/>
+	<logger name="org" level="WARN"/>
+	<logger name="io" level="WARN"/>
+	<logger name="com.jcraft.jsch" level="WARN"/>
+	<logger name="com.ulisesbocchio" level="WARN"/>
+	<logger name="com.zaxxer" level="WARN"/>
+	<logger name="org.apache.fontbox" level="ERROR"/>
+	<logger name="org.mongodb.driver" level="WARN"/>
+	<logger name="com.xcurenet.logvault.tool" level="INFO" additivity="false">
+		<appender-ref ref="TOOL_FILE"/>
+		<appender-ref ref="CONSOLE_TOOL"/>
+	</logger>
+	<root level="INFO">
+		<appender-ref ref="CONSOLE"/>
+		<appender-ref ref="APP_FILE"/>
+	</root>
+</configuration>

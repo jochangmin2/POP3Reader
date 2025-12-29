@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>3.4.10</version>
+		<relativePath/>
+	</parent>
+	<groupId>com.xcurenet</groupId>
+	<artifactId>pop3reader</artifactId>
+	<version>1.0.0</version>
+	<packaging>war</packaging>
+	<name>POP3Reader</name>
+	<description>A module that processes and stores usage records of the generative AI service, handling tasks such as file analysis, PII detection</description>
+	<properties>
+		<program.name>pop3reader</program.name>
+
+		<java.version>17</java.version>
+		<spring-boot.version>3.4.10</spring-boot.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<encoding>UTF-8</encoding>
+		<main.class>com.xcurenet.pop3reader.Pop3ReaderApplication</main.class>
+
+		<release.version>2</release.version>
+		<build.version>${project.version}-${release.version}</build.version>
+		<arch>x86_64</arch>
+
+		<host>10.200.10.64</host>
+		<port>22</port>
+		<user>root</user>
+		<password>Xcurenet1!</password>
+		<copy-dir>/users/${program.name}</copy-dir>
+		<binary-dir>/users/xcurenet/build/${program.name}</binary-dir>
+		<package-name>${program.name}-${project.version}-${release.version}.${arch}.tgz</package-name>
+		<!--suppress UnresolvedMavenProperty -->
+		<rpm-name>${program.name}-${project.version}-${release.version}-${date}.${arch}.rpm</rpm-name>
+
+		<timestamp>${maven.build.timestamp}</timestamp>
+		<maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
+		<maven.test.skip>true</maven.test.skip>
+	</properties>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>2024.0.1</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-autoconfigure</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.github.ulisesbocchio</groupId>
+			<artifactId>jasypt-spring-boot-starter</artifactId>
+			<version>3.0.5</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.18.2</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.18.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.18.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.36</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+			<version>2.14.0</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4.7</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jsoup</groupId>
+			<artifactId>jsoup</artifactId>
+			<version>1.21.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.alibaba.fastjson2</groupId>
+			<artifactId>fastjson2</artifactId>
+			<version>2.0.58</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-email</artifactId>
+			<version>1.5</version>
+		</dependency>
+		<dependency>
+			<groupId>org.yaml</groupId>
+			<artifactId>snakeyaml</artifactId>
+			<version>2.4</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.mail</groupId>
+			<artifactId>jakarta.mail</artifactId>
+			<version>2.0.2</version>
+		</dependency>
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>17</source>
+					<target>17</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<includeSystemScope>true</includeSystemScope>
+					<mainClass>${main.class}</mainClass>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>timestamp-property</id>
+						<goals>
+							<goal>timestamp-property</goal>
+						</goals>
+						<phase>validate</phase>
+						<configuration>
+							<name>date</name>
+							<pattern>yyMMdd</pattern>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>install</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<target>
+								<echo message="Step 1. delete old files"/>
+								<delete file="${project.basedir}\target\dist\" />
+
+								<echo message="Step 2. copy resource files"/>
+								<mkdir dir="${project.basedir}\target\dist\"/>
+								<mkdir dir="${project.basedir}\target\dist\logs"/>
+								<mkdir dir="${project.basedir}\target\dist\lib"/>
+								<mkdir dir="${project.basedir}\target\dist\conf"/>
+
+								<copydir src="${project.basedir}\dist\" dest="${project.basedir}\target\dist\"/>
+
+								<copy file="${project.basedir}\target\${project.artifactId}-${project.version}.war" tofile="${project.basedir}\target\dist\lib\${program.name}-${project.version}.war" />
+								<copy file="${project.basedir}\target\classes\application.properties" tofile="${project.basedir}\target\dist\conf\application.properties" />
+								<copy file="${project.basedir}\target\classes\logback-spring.xml" tofile="${project.basedir}\target\dist\conf\logback-spring.xml" />
+
+								<echo message=""/>
+								<echo message="Step 3. Remove remote old files"/>
+								<sshexec host="${host}" username="${user}" password="${password}" command="rm -rf ${binary-dir}" trust="yes" verbose="false"/>
+
+
+								<echo message=""/>
+								<echo message="Step 4. Project file upload"/>
+								<sshexec host="${host}" username="${user}" password="${password}" command="mkdir -p ${binary-dir}/${program.name}-skel${copy-dir}/logs" trust="yes" verbose="false"/>
+								<scp todir="${user}:${password}@${host}:${binary-dir}/" trust="yes" verbose="false">
+									<fileset dir="${project.basedir}\rpm\"/>
+								</scp>
+								<scp todir="${user}:${password}@${host}:${binary-dir}/${program.name}-skel/${copy-dir}" trust="yes" verbose="false">
+									<fileset dir="${project.basedir}\target\dist\"/>
+								</scp>
+
+								<echo message=""/>
+								<echo message="Step 5. RPM privilege setting"/>
+								<sshexec host="${host}" username="${user}" password="${password}" command="chmod 755 ${binary-dir}/${program.name}-skel${copy-dir}/bin/${program.name}" trust="yes" verbose="false"/>
+
+								<sshexec host="${host}" username="${user}" password="${password}" command="chmod 755 ${binary-dir}/${program.name}-skel/etc/init.d/${program.name}" trust="yes" verbose="false"/>
+								<sshexec host="${host}" username="${user}" password="${password}" command="chmod 755 ${binary-dir}/rpmwand" trust="yes" verbose="false"/>
+
+								<echo message="Step 6. RPM build"/>
+								<sshexec host="${host}" username="${user}" password="${password}" command="${binary-dir}/rpmwand files ${binary-dir}/${program.name}" trust="yes" verbose="false"/>
+								<sshexec host="${host}" username="${user}" password="${password}" command="cd ${binary-dir} &amp;&amp; ./rpmwand build ${program.name} ${project.version} ${release.version} ${arch}" trust="yes" verbose="false"/>
+
+								<mkdir dir="${project.basedir}\target\RPMS\"/>
+								<sshexec host="${host}" username="${user}" password="${password}" command="mv ${binary-dir}/RPMS/${arch}/${program.name}-${project.version}-${release.version}.${arch}.rpm ${binary-dir}/RPMS/${arch}/${rpm-name}" trust="yes" verbose="false"/>
+
+								<echo message="Step 7. RPM file download"/>
+								<sshexec host="${host}" username="${user}" password="${password}" command="cd ${binary-dir}/RPMS/${arch}/ &amp;&amp; md5sum ${rpm-name} > ${rpm-name}.md5" trust="yes" verbose="false"/>
+								<scp file="${user}:${password}@${host}:${binary-dir}/RPMS/${arch}/${rpm-name}" todir="./target/RPMS/" trust="yes" verbose="false"/>
+								<scp file="${user}:${password}@${host}:${binary-dir}/RPMS/${arch}/${rpm-name}.md5" todir="./target/RPMS/" trust="yes" verbose="false"/>
+
+								<echo message="Step 8. REMOVE RPM build dir"/>
+								<sshexec host="${host}" username="${user}" password="${password}" command="rm -rf /root/rpmbuild/BUILDROOT" trust="yes" verbose="false"/>
+								<echo message=""/>
+								<echo message="Success Build"/>
+							</target>
+						</configuration>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>commons-net</groupId>
+						<artifactId>commons-net</artifactId>
+						<version>1.4.1</version>
+					</dependency>
+					<dependency>
+						<groupId>ant</groupId>
+						<artifactId>ant-commons-net</artifactId>
+						<version>1.6.5</version>
+					</dependency>
+					<dependency>
+						<groupId>org.apache.ant</groupId>
+						<artifactId>ant-jsch</artifactId>
+						<version>1.8.4</version>
+					</dependency>
+					<dependency>
+						<groupId>com.jcraft</groupId>
+						<artifactId>jsch</artifactId>
+						<version>0.1.54</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+		</plugins>
+	</build>
+</project>

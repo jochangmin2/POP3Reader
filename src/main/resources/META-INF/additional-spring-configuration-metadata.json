@@ -1,0 +1,48 @@
+{
+	"properties": [
+		{
+			"name": "spring.application.description",
+			"type": "java.lang.String",
+			"description": "Description for spring.application.description."
+		},
+		{
+			"name": "jvm.xms",
+			"type": "java.lang.String",
+			"description": "Description for jvm.xms."
+		},
+		{
+			"name": "jvm.xmx",
+			"type": "java.lang.String",
+			"description": "Description for jvm.xmx."
+		},
+		{
+			"name": "mail.store.protocol",
+			"type": "java.lang.String",
+			"description": "Description for mail.store.protocol."
+		},
+		{
+			"name": "mail.pop3.host",
+			"type": "java.lang.String",
+			"description": "Description for mail.pop3.host."
+		},
+		{
+			"name": "mail.pop3.port",
+			"type": "java.lang.String",
+			"description": "Description for mail.pop3.port."
+		},
+		{
+			"name": "mail.pop3.username",
+			"type": "java.lang.String",
+			"description": "Description for mail.pop3.username."
+		},
+		{
+			"name": "mail.pop3.password",
+			"type": "java.lang.String",
+			"description": "Description for mail.pop3.password."
+		},
+		{
+			"name": "mail.pop3.fatch.count",
+			"type": "java.lang.String",
+			"description": "Description for mail.pop3.fatch.count."
+		}
+	] }
