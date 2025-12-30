@@ -47,12 +47,14 @@ public class Pop3MailService {
 			int count = 0;
 			for (Message msg : messages) {
 				if (count++ >= mailProperties.getMailPop3FetchCount()) break;
-				if (!mailFilterService.isOriginalMail(msg)) continue;
+				if (!mailFilterService.isOriginalMail(msg)) {
+					log.info("Skip mail: {}", msg.getSubject());
+					continue;
+				}
 
 				MailData data = mailParserService.parse(msg, mailProperties.getMailPop3Username());
 				mailForwardService.forward(data);
 			}
-
 		} catch (Exception e) {
 			log.error("POP3 read error", e);
 		} finally {

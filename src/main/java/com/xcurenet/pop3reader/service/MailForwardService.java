@@ -19,7 +19,7 @@ public class MailForwardService {
 		// 3) 파일 Drop
 		// 4) EMS / EDC 연동
 		if (tryRegisterMail(mail.getAccountId(), mail.getMessageId())) {
-			log.info("Forward mail: {} / {} / {} / {} / {}", mail.getMessageId(), mail.getSubject(), mail.getFrom(), mail.getSentDate(), mail.getBody());
+			log.info("Forward mail: {} / {} / {} / {}", mail.getMessageId(), mail.getSubject(), mail.getFrom(), mail.getSentDate());
 		}
 	}
 
